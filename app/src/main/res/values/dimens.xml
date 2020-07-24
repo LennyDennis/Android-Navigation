@@ -3,4 +3,6 @@
     <dimen name="text_top">24dp</dimen>
     <dimen name="text_side">16dp</dimen>
     <dimen name="button_top">32dp</dimen>
+    <dimen name="card_margin">8dp</dimen>
+    <dimen name="item_margin">4dp</dimen>
 </resources>
