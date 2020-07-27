@@ -19,16 +19,10 @@ import com.lennydennis.androidnavigation.viewmodel.SharedViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SharedViewModel mSharedViewModel;
-    private User mUser;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        mSharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
-//        mSharedViewModel.getSelectedUser().observe(this,null);
 
         isFirstLogin();
         initializeFragment();
