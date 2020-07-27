@@ -3,6 +3,7 @@ package com.lennydennis.androidnavigation.ui;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -15,6 +16,7 @@ import com.lennydennis.androidnavigation.R;
 import com.lennydennis.androidnavigation.adapters.UserRecyclerViewAdapter;
 import com.lennydennis.androidnavigation.models.User;
 import com.lennydennis.androidnavigation.util.Users;
+import com.lennydennis.androidnavigation.viewmodel.SharedViewModel;
 
 import java.util.ArrayList;
 
@@ -22,7 +24,7 @@ public class HomeFragment extends Fragment {
 
     private static final int COLUMNS = 2;
     private RecyclerView mRecyclerView;
-    private ArrayList<User> mUserArrayList;
+    private ArrayList<User> mUserArrayList = new ArrayList<>();;
     private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     private UserRecyclerViewAdapter mUserRecyclerViewAdapter;
 
@@ -37,7 +39,6 @@ public class HomeFragment extends Fragment {
 
     private void displayUsers(){
         Users users = new Users();
-        mUserArrayList = new ArrayList<>();
         if (mUserArrayList != null) {
             mUserArrayList.clear();
         }

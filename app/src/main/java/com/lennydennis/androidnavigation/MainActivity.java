@@ -8,17 +8,28 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
+import com.lennydennis.androidnavigation.models.User;
 import com.lennydennis.androidnavigation.ui.HomeFragment;
 import com.lennydennis.androidnavigation.util.PreferencesKey;
+import com.lennydennis.androidnavigation.viewmodel.SharedViewModel;
 
 public class MainActivity extends AppCompatActivity {
+
+    private SharedViewModel mSharedViewModel;
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mSharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+        mSharedViewModel.getSelectedUser().observe(this,null);
+
         isFirstLogin();
         initializeFragment();
     }
