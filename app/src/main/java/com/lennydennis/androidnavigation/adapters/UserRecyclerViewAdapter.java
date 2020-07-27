@@ -2,6 +2,7 @@ package com.lennydennis.androidnavigation.adapters;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,8 @@ import com.lennydennis.androidnavigation.viewmodel.SharedViewModel;
 import java.util.List;
 
 public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerViewAdapter.ViewHolder>  {
+
+    private static final String TAG = "UserRecyclerViewAdapter";
 
     private List<User> mUserList;
     private Context mContext;
@@ -60,17 +63,19 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
         holder.userCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSharedViewModel.selectUser(mUser);
-                UserProfileFragment userProfileFragment = new UserProfileFragment();
 
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(String.valueOf(R.string.intent_user),mUser);
-                userProfileFragment.setArguments(bundle);
+                Log.d(TAG, "onClick: "+mUser.getName());
+//                mSharedViewModel.setSelectedUser(mUser);
+//                UserProfileFragment userProfileFragment = new UserProfileFragment();
 
-                ((MainActivity)mContext).getSupportFragmentManager()
-                        .beginTransaction().replace(R.id.container, userProfileFragment, String.valueOf(R.string.tag_fragment_home))
-                        .addToBackStack(null)
-                        .commit();
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable(String.valueOf(R.string.intent_user),mUser);
+//                userProfileFragment.setArguments(bundle);
+
+//                ((MainActivity)mContext).getSupportFragmentManager()
+//                        .beginTransaction().replace(R.id.container, userProfileFragment, String.valueOf(R.string.tag_fragment_home))
+//                        .addToBackStack(null)
+//                        .commit();
             }
         });
 
@@ -98,7 +103,7 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
         TextView userName;
         TextView userInterest;
         TextView userStatus;
-         CardView userCardView;
+        CardView userCardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

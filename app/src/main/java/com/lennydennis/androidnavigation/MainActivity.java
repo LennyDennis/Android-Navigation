@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
-        mSharedViewModel.getSelectedUser().observe(this,null);
+//        mSharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+//        mSharedViewModel.getSelectedUser().observe(this,null);
 
         isFirstLogin();
         initializeFragment();

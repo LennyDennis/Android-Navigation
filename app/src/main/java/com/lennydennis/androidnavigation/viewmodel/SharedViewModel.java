@@ -13,16 +13,13 @@ import com.lennydennis.androidnavigation.ui.UserProfileFragment;
 import java.util.List;
 
 public class SharedViewModel extends ViewModel {
-    private MutableLiveData<User> selectedUser;
+    private MutableLiveData<User> selectedUser =  new MutableLiveData<User>();
 
-    public void selectUser(User user){
+    public void setSelectedUser(User user){
         selectedUser.setValue(user);
     }
 
     public LiveData<User> getSelectedUser(){
-        if(selectedUser == null){
-            selectedUser = new MutableLiveData<User>();
-        }
         return selectedUser;
     }
 }
