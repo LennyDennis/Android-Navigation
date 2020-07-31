@@ -59,4 +59,12 @@
     <string name="user_image">user image</string>
     <string name="user_profile_image">User Profile Image</string>
     <string name="back_arrow">Back Arrow</string>
+    <string name="favorite">Favorite</string>
+    <string name="messages">Messages</string>
+    <string name="reply">Reply</string>
+    <string name="chat_message">Type a message</string>
+    <string name="send">Send</string>
+    <string name="gender">"Gender: "</string>
+    <string name="interest">"Interested In: "</string>
+    <string name="status">"Status: "</string>
 </resources>

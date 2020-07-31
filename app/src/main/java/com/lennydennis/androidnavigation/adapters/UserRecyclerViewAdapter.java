@@ -1,7 +1,7 @@
 package com.lennydennis.androidnavigation.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,16 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.lennydennis.androidnavigation.MainActivity;
 import com.lennydennis.androidnavigation.R;
 import com.lennydennis.androidnavigation.models.User;
-import com.lennydennis.androidnavigation.viewmodel.SharedViewModel;
 
 import java.util.List;
 
@@ -83,6 +79,7 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
         TextView userInterest;
         TextView userStatus;
         int currentPosition;
+        TextView toolbarUserName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
