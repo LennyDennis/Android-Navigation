@@ -2,6 +2,7 @@ package com.lennydennis.androidnavigation.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,6 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
 
     private List<User> mUserList;
     private Context mContext;
-    private User mUser;
 
     private OnItemClickListener mListener;
 
@@ -54,19 +54,19 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        mUser = mUserList.get(position);
-        holder.userName.setText(mUser.getName());
-        holder.userInterest.setText(mUser.getInterestedIn());
-        holder.userStatus.setText(mUser.getStatus());
+        User user = mUserList.get(position);
+        holder.userName.setText(user.getName());
+        holder.userInterest.setText(user.getInterestedIn());
+        holder.userStatus.setText(user.getStatus());
         holder.currentPosition = position;
 
-        RequestOptions requestOptions = new RequestOptions()
-                .placeholder(R.drawable.ic_launcher_background);
+        Log.d(TAG, "onBindViewHolder: "+user.getProfileImage());
+
         Glide.with(mContext)
-                .load(mUser.getProfileImage())
-                .apply(requestOptions)
+                .load(user.getProfileImage())
                 .into(holder.userImage);
     }
+
 
     @Override
     public int getItemCount() {
@@ -79,7 +79,6 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
         TextView userInterest;
         TextView userStatus;
         int currentPosition;
-        TextView toolbarUserName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

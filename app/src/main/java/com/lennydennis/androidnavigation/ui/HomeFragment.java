@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -21,13 +22,13 @@ import com.lennydennis.androidnavigation.util.Users;
 import com.lennydennis.androidnavigation.viewmodel.SharedViewModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class HomeFragment extends Fragment {
 
     private static final int COLUMNS = 2;
     private RecyclerView mRecyclerView;
     private ArrayList<User> mUserArrayList = new ArrayList<>();;
-    private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     private UserRecyclerViewAdapter mUserRecyclerViewAdapter;
     private UserProfileFragment mUserProfileFragment = new UserProfileFragment();
 
@@ -45,8 +46,6 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         SharedViewModel sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
-        mUserRecyclerViewAdapter = new UserRecyclerViewAdapter(mUserArrayList,getActivity());
-        mRecyclerView.setAdapter(mUserRecyclerViewAdapter);
         mUserRecyclerViewAdapter.setListener((v,position) -> {
             sharedViewModel.setSelectedUser(mUserRecyclerViewAdapter.getItemAt(position));
             getParentFragmentManager().beginTransaction()
@@ -70,7 +69,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void initializeRecyclerView(){
-        mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(COLUMNS, LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(COLUMNS, LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
+        mUserRecyclerViewAdapter = new UserRecyclerViewAdapter(mUserArrayList,getActivity());
+        mRecyclerView.setAdapter(mUserRecyclerViewAdapter);
     }
 }

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.lennydennis.androidnavigation.R;
+import com.lennydennis.androidnavigation.models.Message;
 import com.lennydennis.androidnavigation.models.User;
 import com.lennydennis.androidnavigation.util.Messages;
 
@@ -70,8 +71,8 @@ public class MessageRecyclerViewAdapter extends RecyclerView.Adapter<MessageRecy
         this.mListener = listener;
     }
 
-    public String getItemAt(int position) {
-        return Messages.MESSAGES[position];
+    public Message getItemAt(int position) {
+        return new Message(mUserArrayList.get(position), Messages.MESSAGES[position]);
     }
 
     @NonNull

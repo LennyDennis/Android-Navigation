@@ -16,7 +16,7 @@ public class Users {
 
      */
     public static final User James = new User(Uri.parse("android.resource://com.lennydennis.androidnavigation/" + R.drawable.james).toString(),
-            "James", "Male","Female", "Looking");
+            "James", "Male","Female", "Searching");
 
     public static final User Robert = new User(Uri.parse("android.resource://com.lennydennis.androidnavigation/" + R.drawable.robert).toString(),
             "Robert", "Male","Female", "Looking");

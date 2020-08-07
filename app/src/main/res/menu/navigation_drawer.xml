@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/group1" >
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/ic_action_home"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="@string/settings" />
+    </group>
+    <group android:id="@+id/group2" >
+        <item
+            android:id="@+id/agreement"
+            android:icon="@drawable/ic_baseline_format_indent_increase_24"
+            android:title="@string/agreement" />
+    </group>
+</menu>

@@ -70,15 +70,13 @@ public class UserProfileFragment extends Fragment implements OnLikeListener {
 
         SharedViewModel viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         viewModel.getSelectedUser().observe(getViewLifecycleOwner(), user -> {
-            RequestOptions requestOptions = new RequestOptions()
-                    .placeholder(R.drawable.ic_launcher_background);
+
             mUser = user;
             if (mUser != null) {
                 checkIfConnected();
                 Glide.with(requireActivity())
                         .load(user.getProfileImage())
                         .circleCrop()
-                        .apply(requestOptions)
                         .into(userDisplayImage);
                 userDisplayName.setText(user.getName());
                 userDisplayStatus.setText(user.getStatus());
@@ -118,6 +116,7 @@ public class UserProfileFragment extends Fragment implements OnLikeListener {
         savedNames.add(mUser.getName());
         editor.putStringSet(PreferencesKey.SAVED_CONNECTIONS, savedNames);
         editor.apply();
+
     }
 
     @Override

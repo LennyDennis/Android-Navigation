@@ -8,7 +8,7 @@ import com.lennydennis.androidnavigation.models.User;
 
 public class SharedViewModel extends ViewModel {
     private MutableLiveData<User> selectedUser =  new MutableLiveData<>();
-    private MutableLiveData<String> selectedMessage = new MutableLiveData<>();
+    private MutableLiveData<Message> selectedMessage = new MutableLiveData<>();
 
     public void setSelectedUser(User user){
         selectedUser.setValue(user);
@@ -18,11 +18,16 @@ public class SharedViewModel extends ViewModel {
         return selectedUser;
     }
 
-    public void setSelectedMessage(String message){
+    public void setSelectedMessage(Message message){
         selectedMessage.setValue(message);
     }
 
-    public  MutableLiveData<String> getSelectedMessage(){
+    public  MutableLiveData<Message> getSelectedMessage(){
+
+        if (selectedMessage == null) {
+            selectedMessage = new MutableLiveData<>();
+        }
+
         return selectedMessage;
     }
 }
