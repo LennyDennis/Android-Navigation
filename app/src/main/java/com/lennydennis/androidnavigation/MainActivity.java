@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
@@ -20,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.lennydennis.androidnavigation.models.FragmentTag;
 import com.lennydennis.androidnavigation.ui.AgreementFragment;
 import com.lennydennis.androidnavigation.ui.HomeFragment;
 import com.lennydennis.androidnavigation.ui.MessagesFragment;
@@ -27,11 +29,23 @@ import com.lennydennis.androidnavigation.ui.SavedConnectionFragment;
 import com.lennydennis.androidnavigation.ui.SettingsFragment;
 import com.lennydennis.androidnavigation.util.PreferencesKey;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
     private BottomNavigationView mBottomNavigationView;
     private ImageView mHeaderImageView;
     private DrawerLayout mDrawerLayout;
+
+    private SettingsFragment mSettingsFragment;
+    private AgreementFragment mAgreementFragment;
+    private HomeFragment mHomeFragment;
+    private SavedConnectionFragment mSavedConnectionFragment;
+    private MessagesFragment mMessagesFragment;
+
+    public ArrayList<String> mFragmentTags = new ArrayList<>();
+    public ArrayList<FragmentTag> mFragments = new ArrayList<>();
+    private int mExitCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +56,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         mBottomNavigationView.setOnNavigationItemSelectedListener(this);
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
-        View headerview = navigationView.getHeaderView(0);
-        mHeaderImageView = headerview.findViewById(R.id.header_image);
+        View headerView = navigationView.getHeaderView(0);
+        mHeaderImageView = headerView.findViewById(R.id.header_image);
 
         isFirstLogin();
         initializeFragment();
@@ -66,46 +80,32 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
             }
             case R.id.settings: {
-                SettingsFragment settingsFragment = new SettingsFragment();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_content_frame, settingsFragment, getString(R.string.tag_fragment_home));
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                mSettingsFragment = new SettingsFragment();
+                fragmentTransaction(mSettingsFragment,getString(R.string.tag_fragment_home));
                 item.setChecked(true);
                 break;
             }
             case R.id.agreement: {
-                AgreementFragment agreementFragment = new AgreementFragment();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_content_frame, agreementFragment, getString(R.string.tag_fragment_home));
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                mAgreementFragment = new AgreementFragment();
+                fragmentTransaction(mAgreementFragment,getString(R.string.tag_fragment_home));
                 break;
             }
             case R.id.bottom_nav_home: {
-                HomeFragment homeFragment = new HomeFragment();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_content_frame, homeFragment, getString(R.string.tag_fragment_home));
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                mHomeFragment = new HomeFragment();
+                fragmentTransaction(mHomeFragment,getString(R.string.tag_fragment_home));
                 item.setChecked(true);
                 break;
             }
             case R.id.bottom_nav_favorite: {
-                SavedConnectionFragment savedConnectionFragment = new SavedConnectionFragment();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_content_frame, savedConnectionFragment, getString(R.string.tag_fragment_saved_connections));
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                mSavedConnectionFragment = new SavedConnectionFragment();
+                fragmentTransaction(mSavedConnectionFragment,getString(R.string.tag_fragment_saved_connections));
                 item.setChecked(true);
                 break;
             }
             case R.id.bottom_nav_messages: {
-                MessagesFragment messagesFragment = new MessagesFragment();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_content_frame, messagesFragment, getString(R.string.tag_fragment_messages));
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+
+                mMessagesFragment = new MessagesFragment();
+                fragmentTransaction(mMessagesFragment,getString(R.string.tag_fragment_messages));
                 item.setChecked(true);
                 break;
             }
@@ -115,11 +115,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private void initializeFragment() {
-        HomeFragment homeFragment = new HomeFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_content_frame, homeFragment, getString(R.string.tag_fragment_home));
-        fragmentTransaction.addToBackStack(getString(R.string.home));
-        fragmentTransaction.commit();
+        mHomeFragment = new HomeFragment();
+        fragmentTransaction(mHomeFragment,getString(R.string.tag_fragment_home));
+    }
+
+    public void fragmentTransaction(Fragment fragment, String fragmentTag){
+        if(fragment == null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.main_content_frame, fragment, fragmentTag);
+            mFragmentTags.add(fragmentTag);
+            mFragments.add(new FragmentTag(fragment, fragmentTag));
+            fragmentTransaction.commit();
+        }else{
+            mFragmentTags.remove(fragmentTag);
+            mFragmentTags.add(fragmentTag);
+        }
     }
 
     private void setNavigationViewListener(){

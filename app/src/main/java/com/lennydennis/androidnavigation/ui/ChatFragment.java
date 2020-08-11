@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.lennydennis.androidnavigation.MainActivity;
 import com.lennydennis.androidnavigation.R;
 import com.lennydennis.androidnavigation.adapters.ChatRecyclerVIewAdapter;
 import com.lennydennis.androidnavigation.models.Message;
@@ -54,6 +55,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     private ChatRecyclerVIewAdapter mChatRecyclerVIewAdapter;
     private SharedViewModel mViewModel;
     private UserProfileFragment mUserProfileFragment = new UserProfileFragment();
+    private MainActivity mMainActivity;
 
 
     @Override
@@ -146,8 +148,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
             //open user details
             mViewModel.setSelectedUser(mMessage.getUser());
             getParentFragmentManager().beginTransaction()
-                    .replace(R.id.main_content_frame,mUserProfileFragment)
-                    .addToBackStack(null)
+                    .add(R.id.main_content_frame,mUserProfileFragment)
                     .commit();
         }
     }

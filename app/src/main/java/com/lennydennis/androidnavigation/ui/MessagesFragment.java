@@ -61,7 +61,7 @@ public class MessagesFragment extends Fragment {
         mMessageRecyclerViewAdapter.setListener((v,position) ->{
             sharedViewModel.setSelectedMessage(mMessageRecyclerViewAdapter.getItemAt(position));
             getParentFragmentManager().beginTransaction()
-                    .replace(R.id.main_content_frame,mChatFragment)
+                    .add(R.id.main_content_frame,mChatFragment)
                     .addToBackStack(null)
                     .commit();
         });

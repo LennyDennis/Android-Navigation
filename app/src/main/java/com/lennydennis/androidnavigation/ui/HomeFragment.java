@@ -15,14 +15,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lennydennis.androidnavigation.MainActivity;
 import com.lennydennis.androidnavigation.R;
 import com.lennydennis.androidnavigation.adapters.UserRecyclerViewAdapter;
+import com.lennydennis.androidnavigation.models.FragmentTag;
 import com.lennydennis.androidnavigation.models.User;
 import com.lennydennis.androidnavigation.util.Users;
 import com.lennydennis.androidnavigation.viewmodel.SharedViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
@@ -31,6 +34,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<User> mUserArrayList = new ArrayList<>();;
     private UserRecyclerViewAdapter mUserRecyclerViewAdapter;
     private UserProfileFragment mUserProfileFragment = new UserProfileFragment();
+    private MainActivity mMainActivity = new MainActivity();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +52,8 @@ public class HomeFragment extends Fragment {
 
         mUserRecyclerViewAdapter.setListener((v,position) -> {
             sharedViewModel.setSelectedUser(mUserRecyclerViewAdapter.getItemAt(position));
+            mMainActivity.mFragmentTags.add("user profile");
+            mMainActivity.mFragments.add(new FragmentTag(mUserProfileFragment,"user profile"));
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.main_content_frame,mUserProfileFragment)
                     .addToBackStack(null)
