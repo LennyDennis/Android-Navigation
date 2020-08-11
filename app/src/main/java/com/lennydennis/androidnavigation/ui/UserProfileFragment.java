@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.lennydennis.androidnavigation.IMainActivity;
 import com.lennydennis.androidnavigation.R;
 import com.lennydennis.androidnavigation.models.User;
 import com.lennydennis.androidnavigation.util.PreferencesKey;
@@ -36,10 +37,11 @@ import java.util.Set;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class UserProfileFragment extends Fragment implements OnLikeListener {
+public class UserProfileFragment extends Fragment implements OnLikeListener, View.OnClickListener {
     private ImageView userDisplayImage, mBackArrow;
     private TextView userDisplayName, userDisplayGender, userDisplayInterest, userDisplayStatus, userToolbarName;
     private LikeButton mLikeButton;
+    private IMainActivity mInterface;
 
     private User mUser;
 
@@ -56,6 +58,7 @@ public class UserProfileFragment extends Fragment implements OnLikeListener {
         mBackArrow = view.findViewById(R.id.back_arrow);
         userToolbarName = view.findViewById(R.id.user_profile_heading);
         mLikeButton = view.findViewById(R.id.heart_button);
+        mBackArrow.setOnClickListener(this);
 
         mLikeButton.setOnLikeListener(this);
         setBackgroundImage(view);
@@ -129,5 +132,12 @@ public class UserProfileFragment extends Fragment implements OnLikeListener {
         editor.apply();
         editor.putStringSet(PreferencesKey.SAVED_CONNECTIONS, savedNames);
         editor.apply();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.back_arrow){
+            mInterface.onBackPressed();
+        }
     }
 }

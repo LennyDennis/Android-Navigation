@@ -3,8 +3,11 @@ package com.lennydennis.androidnavigation.viewmodel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.lennydennis.androidnavigation.models.FragmentTag;
 import com.lennydennis.androidnavigation.models.Message;
 import com.lennydennis.androidnavigation.models.User;
+
+import java.util.ArrayList;
 
 public class SharedViewModel extends ViewModel {
     private MutableLiveData<User> selectedUser =  new MutableLiveData<>();
@@ -30,4 +33,5 @@ public class SharedViewModel extends ViewModel {
 
         return selectedMessage;
     }
+
 }

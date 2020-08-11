@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.lennydennis.androidnavigation.IMainActivity;
 import com.lennydennis.androidnavigation.MainActivity;
 import com.lennydennis.androidnavigation.R;
 import com.lennydennis.androidnavigation.adapters.ChatRecyclerVIewAdapter;
@@ -55,7 +56,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     private ChatRecyclerVIewAdapter mChatRecyclerVIewAdapter;
     private SharedViewModel mViewModel;
     private UserProfileFragment mUserProfileFragment = new UserProfileFragment();
-    private MainActivity mMainActivity;
+    private IMainActivity mInterface;
 
 
     @Override
@@ -79,6 +80,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
 
         mSendMessage.setOnClickListener(this);
         mToolbarUserDetails.setOnClickListener(this);
+        mBackArrow.setOnClickListener(this);
 
         return view;
     }
@@ -136,8 +138,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.chat_back_button) {
-            //go back to the previous screen
-
+            mInterface.onBackPressed();
         } else if (v.getId() == R.id.send_message) {
             mMessageArrayList.add(new Message(mCurrentUser, mInputMessage.getText().toString()));
             mChatRecyclerVIewAdapter.notifyDataSetChanged();
